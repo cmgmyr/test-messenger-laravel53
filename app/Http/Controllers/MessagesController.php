@@ -20,8 +20,12 @@ class MessagesController extends Controller
      */
     public function __construct()
     {
-        $user = User::find(1);
-        Auth::login($user);
+        $this->middleware(function ($request, $next) {
+            $user = User::find(1);
+            Auth::login($user);
+
+            return $next($request);
+        });
     }
 
     /**
